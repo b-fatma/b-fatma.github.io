@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<head>
+    <title>The Bandit Game</title>
+</head>
+<body>
+
+
+    <h1>Introduction</h1>
+    <p>
+        The bandit game is a command line game, the goal of which is to learn Linux commands. Through fun challenges, players are encouraged to learn by doing.
+    </p>
+
+
+    <h1>Motivation</h1>
+    <p>
+        Here I am going to share my solutions to the challenge, my intention is to present my way of solving the challenges because there may be several ways to do it in some cases. Please try to solve the challenge yourself before looking up answers, because that beats the purpose of the game.
+    </p>
+
+
+    <h1>
+        Answers
+    </h1>
+
+    <p>The reading material, provided in the Helpful Reading Material section of each challange, is amply sufficient to complete the challenges and learn about the concepts we deal with. In the following section I will focus on the commands used only.</p>
+
+    <h2>Level 0</h2>
+    <p>SSH or Secure SHell is a secure connection protocol that allows users to connect to a remote server and execute commands on its command line.</p>
+    <p>The command used for that is: <code> ssh bandit0@bandit.labs.overthewire.org -p 2220 </code></p>
+    <p>The option <code>-p 2220</code> here specifies which server port to connect to.</p>
+
+    <h2>Level 0->1</h2>
+    <p>The <code>cat</code> command is used to display the contents of a file. Here, we're instructed to view the contents of the readme file in the current directory.</p>
+    <p>This is done using the folowing command: <code>cat readme</code></p>
+    
+    <h2>Level 1->2</h2>
+    <p><code>cat ./-</code>, by using cat ./-, we're explicitly specifying the file named - in the current directory. This circumvents any interpretation of - as a special character by preceding it with ./.</p>
+
+    <h2>Level 2->3</h2>
+    <p><code>cat 'spaces in this filename'.</code> File names containing spaces can be tricky to handle in the command line. By enclosing the file name within single or double quotes, we ensure that the entire string is interpreted as a single argument.</p>
+
+    <h2>Level 3->4</h2>
+    <p>To find the hidden file: <code>ls -a ./inhere</code>. In Linux, file names beginning with a dot (.) are hidden by default. The ls -a command lists all files, including hidden ones.</p>
+
+    <h2>Level 4->5</h2>
+    <p><code>file ./inhere/* | grep 'ASCII text'</code>The file command is used to determine the type of a file. By combining file with grep, we can filter the output to display only files of a certain type, such as ASCII text files, or: <code>find ./inhere/* -readable </code>.</p>
+
+    <h2>Level 5->6</h2>
+    <p><code>find ./inhere/* -readable -size 1033c -not -executable</code>. The find command is a powerful tool for searching files based on various criteria. Here, we're tasked with finding files in the inhere directory that are readable but not executable and have a size of 1033c bytes.</p>
+
+    <h2>Level 6->7</h2>
+    <p><code>find / -type f -user bandit7 -group bandit6 2>/dev/null</code></p>
+    <p>The purpose of <code>" 2>/dev/null "</code> is to redirect <code>stderr</code> to a dump file.</p>
+
+    <h2>Level 7->8</h2>
+    <p><code>cat data.txt | grep 'millionth.'</code></p>
+
+    <h2>Level 8->9</h2>
+    <p><code>sort data.txt | uniq -u</code></p>
+
+    <h2>Level 9->10</h2>
+    <p><code>strings data.txt | grep -E "=+."</code></p>
+
+    <h2>Level 10->11</h2>
+    <p>Here we only need to decode the file: <code>base64 -d data.txt</code></p>
+
+    <h2>Level 11->12</h2>
+    <p>Rot13: <code>tr 'A-Za-z' 'N-ZA-Mn-za-m' &lt;&lt;&lt; txt </code></p>
+
+    <h2>Level 12->13</h2>
+    <p>Commands used: <code>mkdir, cp, mv, file, gunzip, bunzip2 and tar xvf</code></p>
+
+    <h2>Level 13->14</h2>
+    <p><code>ssh bandit14@localhost -i ssh.private -p 2220</code></p>
+
+    <h2>Level 14->15</h2>
+    <p>Commands used:</p>
+    <ul>
+        <li>
+            <code>cat /etc/bandit_pass/bandit14</code>
+        </li>
+        <li>
+            <code>telnet localhost 30000</code>
+        </li>
+    </ul>
+    <!-- jN2kgmIXJ6fShzhT2avhotn4Zcka6tnt -->
+
+    <h2>Level 15->16</h2>
+    <p><code>openssl s_client -connect localhost:30001</code></p>
+    <!-- JQttfApK4SeyHwDlI9SXGR50qclOAil1 -->
+
+    <h2>Level 16->17</h2>
+    <p>The command to find the port: <code>nmap -T4 -A localhost -p 31000-32000</code></p>
+    <p>From the manpage manual: <code>-A, to enable OS and version detection, script scanning, and traceroute; -T4 for faster execution; and then the hostname.</code></p>
+    <p>Then, after manually checking the output for each port, <code>echo "previous level password" | openssl s_client -connect localhost:31790 -ign_eof  </code></p>
+    <p>The server replied with an RSA private key, which I saved into a file in  a directory I createdd in /tmp. I had to change the permissions of the file to 600 using the command <code>chmod</code>. I used the key file to login through <code>ssh</code> to <code>bandit17@localhost</code> using the <code>-i</code> parameter, as done previously.</p>
+    <!-- VwOSWtCA7lRKkTfbr2IDh6awj9RNZM5e -->
+
+    <h2>Level 17->18</h2>
+    <p><code>diff passwords.old passwords.new </code></p>
+    <!-- hga5tuuCLF6fFzUpnagiMN8ssu9LFrdg -->
+
+    <h2>Level 18->19</h2>
+    <p><code>ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme</code></p>
+    <!-- awhqfNnAbc1naukrpqDYcF95h7HoMTrC -->
+
+    <h2>Level 19->20</h2>
+    <p><code>./bandit20-do cat /etc/bandit_pass/bandit20</code></p>
+    <!-- VxCazJaVykI6W36BkBU0mJTCM8rR95XT -->
+
+    <h2>Level 20->21</h2>
+    <p>I solved this level by running the following comands on different terminals:</p>
+    <ul>
+        <li><code>nc -l 1234</code></li>
+        <li><code>./suconnect 1234</code></li>
+    </ul>
+    <!-- NvEJF7oVjkddltPSrdKEFOllh9V1IBcq -->
+
+    <h2>Level 21->22</h2>
+    <ul>
+        <li><code>ls /etc/cron.d/</code></li>
+        <li><code>cat /etc/cron.d/cronjob_bandit22</code></li>
+        <li><code>cat /usr/bin/cronjob_bandit22.sh</code></li>
+        <li><code>cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv</code></li>
+    </ul>
+    <!-- WdDozAdTM2z9DiFEQ2mGlwngMfj4EZff -->
+
+    <h2>Level 22->23</h2>
+    <p><code>cat /usr/bin/cronjob_bandit23.sh</code>, then <code>echo I am user bandit23 | md5sum | cut -d ' ' -f 1</code> followed by a <code>cat</code>.</p>
+    <!-- QYw0Y2aiA672PsMmh9puTQuhoz8SyR2G -->
+
+    <h2>Level 23->24</h2>
+    <p>To get the password for the next level, I did the following:</p>
+    <p>First, I created an empty file in <code>/tmp</code> and changed its permissions to 666 using <code>chmod</code> to allow all users to write into it.</p>
+    <p>Then, I created a bash script in the directory <code>/var/spool/bandit24/foo</code> that first displayed the content of the file <code>/etc/bandit_pass/bandit24</code>, using <code>cat</code>, and redirected the output to the file I created in the previous step. Additionally, I changed the permissions of the bash file to 777 so that all users can execute it.</p>
+    <!-- VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar -->
+    
+    <h2>Level 24->25</h2>
+    <p>
+        <code>
+        #!/bin/bash
+
+        for i in {0000..9999}; do
+                echo $(cat /etc/bandit_pass/bandit24) $i 
+        done | nc localhost 30002 > /tmp/output.txt
+        </code>
+    </p>
+
+    <p><code>sort -u /tmp/output.txt</code></p>
+    <!-- p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d -->
+
+    <h2>Level 25->26</h2>
+    <p><code>grep ^bandit26 /etc/passwd</code>, which yielded the following output: <code>bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext</code></p>
+    <p><code>cat /usr/bin/showtext</code></p>
+    <p><code>scp -P 2220 bandit25@bandit.labs.overthewire.org:/home/bandit25/bandit26.sshkey /home/$username </code></p>
+    <p>After making the screen smaller: <code>ssh -i bandit26.sshkey bandit26@bandit.labs.overthewire.org -p 2220</code></p>
+    <p><code>V</code> then <code>:r /etc/bandit_pass/bandit26</code></p>
+    <p>Ref: <a href="https://mayadevbe.me/posts/overthewire/bandit/level26/">https://mayadevbe.me/posts/overthewire/bandit/level26/</a></p>
+    <!-- c7GvcKlw9mC7aUQaPx7nwFstuAIBw1o1 -->
+
+    <h2>Level 26->27</h2>
+    <p>After connecting to as bandit26, with a small terminal screen as done previously, I did the following after going into vim:</p>
+    <ul>
+        <li><code>:set shell=/bin/bash</code> then I started the shell by executing the command <code>:shell</code>.</li>
+        <li><code>ls</code> then <code>./bandit27-do cat /etc/bandit_pass/bandit27</code></li>
+    </ul>
+    <!-- YnQpBuifNMas1hcUFk70ZmqkhUU2EuaS -->
+
+    <h2>Level 27->28</h2>
+    <p>First, <code>git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo /tmp/dir</code>, to clone the reposiroty. Then <code>ls</code> and <code>cat</code> to retrieve the password.</p>
+    <!-- AVanL161y9rsbcJIsFHuw35rjaOM19nR -->
+
+    <h2>Level 28->29</h2>
+    <ul>
+        <li><code>git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo /tmp/dir</code></li>
+        <li><code>git log</code></li>
+        <li><code>git revert 14f754b3ba6531a2b89df6ccae6446e8969a41f3</code></li>
+        <li><code>cat README.md</code></li>
+    </ul>
+    <!-- tQKvmcwNYcFS6vmPHIUSI3ShmsrQZK8S -->
+    
+    <h2>Level 29->30</h2>
+    <p><code>git branch -a</code>, <code>git checkout remotes/origin/dev</code> then <code>cat README.md</code></p>
+    <!-- xbhV3HpNGlTIdnjUrdAlPzc2L6y9EOnS -->
+
+    <h2>Level 30->31</h2>
+    <p><code>git tag</code> then <code>git show secret</code></p>
+    <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">Helpful link</a>
+    <!-- OoffzGDlzhAlerFJ2cAiz1D41JW1Mhmt -->
+
+    <h2>Level 31->32</h2>
+    <p>First, I started by creating the file <code>key.txt</code> using <code>vim</code>. When trying to add the file using <code>git add key.txt</code>, I was notified that the file was ignored because of <code>.gitignore</code>. Then, I modified the .gitignore and added key.txt and committed the change. After that I used <code>git push</code> to push the changes to the remote repository.</p>
+    <!-- rmCBvG56y58BXzv98yZGdO7ATVL5dW8y -->
+
+
+    
+</body>
+
+
